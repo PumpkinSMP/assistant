@@ -3,8 +3,8 @@ from nextcord.ext import commands
 import logging
 import os
 
-
-bot = commads.bot(commands_prefix=when_mentioned_or("ps "))
+prefix = commands.when_mentioned_or("ps ")
+bot = commands.Bot(command_prefix=prefix)
 bot.owner_ids = {914452175839723550, 691319007579471902}
 
 # Logging setup
@@ -18,7 +18,7 @@ bot.logger = logger
 
 @bot.event
 async def on_ready():
-    logging.info(f"Logged in as {bot.user} ({bot.user.id}")
+    print(f"Logged in as {bot.user} ({bot.user.id})")
 
 for file in os.listdir("./src/cogs"):
     """
@@ -27,8 +27,7 @@ for file in os.listdir("./src/cogs"):
     if file.endswith(".py"):
         name = file[:-3]
         cog = f"cogs.{name}"
-        cogs.append(cog)
         bot.load_extension(cog)
-        logging.info(f"Loaded extension {name}.")
+        print(f"Loaded extension {name}.")
 
 bot.run(os.getenv("TOKEN"))
