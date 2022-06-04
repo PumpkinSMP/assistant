@@ -34,6 +34,18 @@ class Events(commands.Cog):
         await message.delete()
         self.bot.logger.info(f"Deleted a message from {message.author} in {message.channel}")
 
+    @commands.Cog.listener(name="on_message")
+    async def pumpkin_listen(self, message):
+        """
+        DMs LazyPumpkin if a message contains 'pumpkin'
+        """
+        await self.bot.wait_until_ready()
+        lazy_pumpkin = self.bot.get_user(691319007579471902)
+        if message.author.id == self.bot.user.id:
+            return
+
+        if "pumpkin" in message.content:
+            await lazy_pumpkin.send(f"{message.author} said \"pumpkin\" in a message.\nMessage Link: {message.jump_url}")
 
 
 def setup(bot):

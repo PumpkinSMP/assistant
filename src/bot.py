@@ -6,7 +6,7 @@ import keep_alive
 
 
 prefix = commands.when_mentioned_or("ps ")
-bot = commands.Bot(command_prefix=prefix)
+bot = commands.Bot(command_prefix=prefix, intents=nextcord.Intents.all())
 bot.owner_ids = {914452175839723550, 691319007579471902}
 
 # Logging setup
