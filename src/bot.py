@@ -2,6 +2,8 @@ import nextcord
 from nextcord.ext import commands
 import logging
 import os
+import keep_alive
+
 
 prefix = commands.when_mentioned_or("ps ")
 bot = commands.Bot(command_prefix=prefix)
@@ -30,4 +32,5 @@ for file in os.listdir("./src/cogs"):
         bot.load_extension(cog)
         print(f"Loaded extension {name}.")
 
+keep_alive.keep_alive()
 bot.run(os.getenv("TOKEN"))
