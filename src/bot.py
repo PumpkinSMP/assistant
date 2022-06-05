@@ -1,9 +1,11 @@
+from dotenv import load_dotenv
+import os
+import logging
 import nextcord
 from nextcord.ext import commands
-import logging
-import os
 import keep_alive
 
+load_dotenv()
 
 prefix = commands.when_mentioned_or("ps ")
 bot = commands.Bot(command_prefix=prefix, intents=nextcord.Intents.all())

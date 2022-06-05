@@ -8,6 +8,8 @@ authors = ["MouseMoosz <<>>"]
 python = "^3.8"
 Flask = "^2.1.2"
 nextcord = "2.0.0a10"
+wheel = "^0.37.1"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 
