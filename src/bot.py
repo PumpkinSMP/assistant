@@ -5,11 +5,10 @@ import nextcord
 from nextcord.ext import commands
 import keep_alive
 
-load_dotenv()
 
+load_dotenv()
 prefix = commands.when_mentioned_or("ps ")
-bot = commands.Bot(command_prefix=prefix, intents=nextcord.Intents.all())
-bot.owner_ids = {914452175839723550, 691319007579471902}
+bot = commands.Bot(command_prefix=prefix, intents=nextcord.Intents.all(), owner_ids={914452175839723550, 691319007579471902})
 
 # Logging setup
 logger = logging.getLogger('nextcord')
