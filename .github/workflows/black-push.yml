@@ -4,6 +4,7 @@ jobs:
   Check:
     runs-on: ubuntu-latest
     steps:
+      - uses: ./
       - run: echo "$(ls)"
       - run: echo "$(pwd)"
       - run: python3 -m pip install -r dev-requirements.txt
