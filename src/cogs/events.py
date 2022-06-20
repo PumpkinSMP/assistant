@@ -26,7 +26,7 @@ class Events(commands.Cog):
             return
 
         if message.author == target_bot:
-            asyncio.sleep(15)
+            await asyncio.sleep(15)
             await message.delete()
             return
 
