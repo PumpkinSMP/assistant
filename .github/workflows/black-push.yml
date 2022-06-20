@@ -4,6 +4,8 @@ jobs:
   Check:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "$(ls)"
+      - run: echo "$(pwd)"
       - run: python3 -m pip install -r dev-requirements.txt
       - run: python3 -m black --check --verbose src/
   
