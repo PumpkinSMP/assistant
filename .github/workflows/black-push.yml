@@ -1,0 +1,10 @@
+name: Python Black Check
+on: [push, pull_request]
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python3 -m pip install -r dev-requirements.txt
+      - run: python3 -m black --check --verbose src/
+  
+
