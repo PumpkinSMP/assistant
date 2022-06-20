@@ -40,7 +40,7 @@ class Events(commands.Cog):
         DMs LazyPumpkin if a message contains 'pumpkin'
         """
         await self.bot.wait_until_ready()
-        ignore_channel_ids = [962053647116664953]
+        ignore_channel_ids = [962053647116664953, 934836840568074240]
         lazy_pumpkin = self.bot.get_user(691319007579471902)
         if message.author.id == self.bot.user.id:
             return
