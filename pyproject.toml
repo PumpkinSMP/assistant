@@ -10,6 +10,7 @@ Flask = "^2.1.2"
 nextcord = "2.0.0a10"
 wheel = "^0.37.1"
 python-dotenv = "^0.20.0"
+jishaku = "2.4.0"
 
 [tool.poetry.dev-dependencies]
 
