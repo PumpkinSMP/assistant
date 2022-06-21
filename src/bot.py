@@ -3,8 +3,7 @@ import os
 import logging
 import nextcord
 from nextcord.ext import commands
-
-# import keep_alive
+import keep_alive
 
 
 load_dotenv()
@@ -42,5 +41,5 @@ for file in os.listdir("./src/cogs"):
         bot.load_extension(cog)
         print(f"Loaded extension {name}.")
 
-# keep_alive.keep_alive()
+keep_alive.keep_alive()
 bot.run(os.getenv("TOKEN"))
