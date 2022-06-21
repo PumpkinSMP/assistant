@@ -24,7 +24,9 @@ class Events(commands.Cog):
             return
 
         if "pumpkin" in message.content.lower():
-            await lazy_pumpkin.send(f"{message.author} said \"pumpkin\" in a message.\nMessage Link: {message.jump_url}")
+            await lazy_pumpkin.send(
+                f'{message.author} said "pumpkin" in a message.\nMessage Link: {message.jump_url}'
+            )
 
 
 def setup(bot):

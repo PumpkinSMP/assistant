@@ -1,15 +1,18 @@
 from flask import Flask
 from threading import Thread
 
-app = Flask('')
+app = Flask("")
 
-@app.route('/')
+
+@app.route("/")
 def main():
     return "Join PumpkinSMP minecraft server Java and Bedrock editon: IP: play.pumpkinsmp.gq Port: 25577"
 
+
 def run():
-  app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)
+
 
 def keep_alive():
-  server = Thread(target=run)
-  server.start()
+    server = Thread(target=run)
+    server.start()
