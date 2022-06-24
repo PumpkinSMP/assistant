@@ -7,7 +7,7 @@ import aiohttp
 class MCServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
     @nextcord.slash_command()
     async def server(self, interaction: nextcord.Interaction):
         pass
@@ -16,7 +16,9 @@ class MCServer(commands.Cog):
     async def status(self, interaction: nextcord.Interaction):
         await interaction.response.defer()
         async with aiohttp.ClientSession() as session:
-            async with session.get("https://api.mcsrvstat.us/2/play.pumpkinsmp.gq") as response:
+            async with session.get(
+                "https://api.mcsrvstat.us/2/play.pumpkinsmp.gq"
+            ) as response:
                 data = await response.json()
                 status = ""
                 if data["online"] == True:
@@ -29,7 +31,9 @@ class MCServer(commands.Cog):
                 else:
                     color = nextcord.Color.red()
 
-                embed = nextcord.Embed(title=f"PumpkinSMP Status | {status}", color=color)
+                embed = nextcord.Embed(
+                    title=f"PumpkinSMP Status | {status}", color=color
+                )
                 embed.add_field(name="Status", value=status)
                 embed.add_field(name="MOTD", value=data["motd"]["clean"][0])
                 embed.add_field(name="Online Players", value=data["players"]["online"])
