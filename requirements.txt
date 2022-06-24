@@ -1,3 +1,6 @@
 nextcord
 asyncio
 python-dotenv
+aiohttp
+cchardet
+aiodns
