@@ -7,6 +7,19 @@ import aiohttp
 class MCServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @nextcord.slash_command()
+    async def vote(self, interaction: nextcord.Interaction):
+        voting_links = ["https://bit.ly/PumpkinVote1", "https://bit.ly/PumpkinVote2", "https://bit.ly/PumpkinVote3", "https://bit.ly/PumpkinVote4", "https://bit.ly/PumpkinVote5"]
+        embed = nextcord.Embed(title="Vote for PumpkinSMP", color=nextcord.Color.green())
+        embed.description = "Vote for PumpkinSMP to get awesome rewards like a special rank and voting crate keys!"
+        embed.add_field(name="Voting Link 1", value=voting_links[0])
+        embed.add_field(name="Voting Link 2", value=voting_links[1])
+        embed.add_field(name="Voting Link 3", value=voting_links[2])
+        embed.add_field(name="Voting Link 4", value=voting_links[3])
+        embed.add_field(name="Voting Link 5", value=voting_links[4])
+        embed.set_footer(text=f"Requested by {interaction.user}", icon_url=interaction.user.display_avatar.url)
+        await interaction.send(embed=embed)
 
     @nextcord.slash_command()
     async def server(self, interaction: nextcord.Interaction):
