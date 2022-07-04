@@ -41,7 +41,7 @@ class MCServer(commands.Cog):
         await interaction.response.defer()
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                "https://api.mcsrvstat.us/2/play.pumpkinsmp.gq"
+                "https://api.mcsrvstat.us/2/play.pumpkinsmp.gq:25577"
             ) as response:
                 data = await response.json()
                 status = ""
@@ -62,6 +62,7 @@ class MCServer(commands.Cog):
                 embed.add_field(name="MOTD", value=data["motd"]["clean"][0])
                 embed.add_field(name="Online Players", value=data["players"]["online"])
                 embed.add_field(name="Max Players", value=data["players"]["max"])
+                embed.set_image(url="http://status.mclive.eu/PumpkinSMP/play.pumpkinsmp.gq/25577/banner.png")
                 await interaction.send(embed=embed)
 
 
