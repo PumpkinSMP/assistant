@@ -7,7 +7,7 @@ class FakeMod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(guild_ids=[981510059181883402])
+    @nextcord.slash_command()
     async def bon(
         self,
         interaction: nextcord.Interaction,
@@ -18,7 +18,7 @@ class FakeMod(commands.Cog):
     ):
         await interaction.send(f'Banned {member} for "{reason}".')
 
-    @nextcord.slash_command(guild_ids=[981510059181883402])
+    @nextcord.slash_command()
     async def kock(
         self,
         interaction,
