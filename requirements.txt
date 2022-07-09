@@ -6,4 +6,4 @@ cchardet
 aiodns
 pre-commit
 black
-
+jishaku==2.4.0
