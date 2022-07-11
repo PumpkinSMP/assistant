@@ -6,5 +6,5 @@ cchardet
 jishaku==2.4.0
 nextcord
 pre-commit
-pydactyl
+py-dactyl
 python-dotenv
