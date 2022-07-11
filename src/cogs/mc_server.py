@@ -40,7 +40,7 @@ class MCServer(commands.Cog):
         pass
 
     @server.command()
-    @commands.has_role(994553004596412486)
+    @commands.has_role(935584673327878185)
     async def start(self, ctx):
         try:
             async with ctx.typing():
@@ -52,7 +52,7 @@ class MCServer(commands.Cog):
             await ctx.send("Failed to start server.")
 
     @server.command()
-    @commands.has_role(981560939415478372)
+    @commands.has_role(935584673327878185)
     async def stop(self, ctx):
         try:
             async with ctx.typing():
@@ -64,7 +64,7 @@ class MCServer(commands.Cog):
             await ctx.send("Failed to stop server.")
 
     @server.command()
-    @commands.has_role(981560939415478372)
+    @commands.has_role(935584673327878185)
     async def kill(self, ctx):
         try:
             async with ctx.typing():
@@ -76,7 +76,7 @@ class MCServer(commands.Cog):
             await ctx.send("Failed to kill server.")
 
     @server.command()
-    @commands.has_role(981560939415478372)
+    @commands.has_role(935584673327878185)
     async def restart(self, ctx):
         try:
             async with ctx.typing():
