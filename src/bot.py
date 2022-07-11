@@ -1,17 +1,17 @@
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 import os
 import logging
 import nextcord
 from nextcord.ext import commands
 
 
-load_dotenv()
-prefix = commands.when_mentioned_or("ps ")
+prefix = commands.when_mentioned_or("!")
 bot = commands.Bot(
     command_prefix=prefix,
     intents=nextcord.Intents.all(),
     owner_ids={914452175839723550, 691319007579471902},
 )
+bot.env = dotenv_values(".env")
 
 # Logging setup
 logger = logging.getLogger("nextcord")
@@ -40,4 +40,4 @@ for file in os.listdir("./src/cogs"):
         bot.load_extension(cog)
         print(f"Loaded extension {name}.")
 
-bot.run(os.getenv("TOKEN"))
+bot.run(bot.env["TOKEN"])

@@ -1,9 +1,10 @@
-nextcord
-asyncio
-python-dotenv
-aiohttp
-cchardet
 aiodns
-pre-commit
+aiohttp
+asyncio
 black
+cchardet
 jishaku==2.4.0
+nextcord
+pre-commit
+pydactyl
+python-dotenv

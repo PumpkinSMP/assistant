@@ -1,33 +1,18 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord import SlashOption
 
 
 class FakeMod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command()
-    async def bon(
-        self,
-        interaction: nextcord.Interaction,
-        member: nextcord.Member = SlashOption(
-            required=True, description="Member to ban"
-        ),
-        reason: str = SlashOption(required=False),
-    ):
-        await interaction.send(f'Banned {member} for "{reason}".')
+    @commands.command()
+    async def bon(self, ctx, member: nextcord.Member, reason: str = None):
+        await ctx.reply(f'Banned {member} for "{reason}".', mention_author=False)
 
-    @nextcord.slash_command()
-    async def kock(
-        self,
-        interaction,
-        member: nextcord.Member = SlashOption(
-            required=True, description="Member to kick"
-        ),
-        reason: str = SlashOption(required=False),
-    ):
-        await interaction.send(f'Kicked {member} for "{reason}".')
+    @commands.command()
+    async def kock(self, ctx, member: nextcord.Member, reason: str = None):
+        await ctx.reply(f'Kicked {member} for "{reason}".', mention_author=False)
 
 
 def setup(bot):

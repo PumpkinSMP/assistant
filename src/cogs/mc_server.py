@@ -1,15 +1,18 @@
-import nextcord
-from nextcord import SlashOption
 from nextcord.ext import commands
 import aiohttp
+from pydactyl import PterodactylClient
+import nextcord
 
 
 class MCServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.api = PterodactylClient(
+            "http://144.24.143.226:8081", self.bot.env["PTERO_API"]
+        )
 
-    @nextcord.slash_command()
-    async def vote(self, interaction: nextcord.Interaction):
+    @commands.command()
+    async def vote(self, ctx):
         voting_links = [
             "https://bit.ly/PumpkinVote1",
             "https://bit.ly/PumpkinVote2",
@@ -27,43 +30,62 @@ class MCServer(commands.Cog):
         embed.add_field(name="Voting Link 4", value=voting_links[3])
         embed.add_field(name="Voting Link 5", value=voting_links[4])
         embed.set_footer(
-            text=f"Requested by {interaction.user}",
-            icon_url=interaction.user.display_avatar.url,
+            text=f"Requested by {ctx.author}",
+            icon_url=ctx.author.display_avatar.url,
         )
-        await interaction.send(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
-    @nextcord.slash_command()
-    async def server(self, interaction: nextcord.Interaction):
+    @commands.group()
+    async def server(self, ctx):
         pass
 
-    @server.subcommand()
-    async def status(self, interaction: nextcord.Interaction):
-        await interaction.response.defer()
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                "https://api.mcsrvstat.us/2/play.pumpkinsmp.gq:25577"
-            ) as response:
-                data = await response.json()
-                status = ""
-                if data["online"] == True:
-                    status = "Online"
-                else:
-                    status = "Offline"
-                color = ""
-                if status == "Online":
-                    color = nextcord.Color.green()
-                else:
-                    color = nextcord.Color.red()
+    @server.command()
+    @commands.has_role(994553004596412486)
+    async def start(self, ctx):
+        try:
+            async with ctx.typing():
+                servers = self.api.client.servers.list_servers()
+                srv_id = servers[0]["attributes"]["identifier"]
+                self.api.client.servers.send_power_action(srv_id, "start")
+            await ctx.send("Starting server.")
+        except:
+            await ctx.send("Failed to start server.")
 
-                embed = nextcord.Embed(
-                    title=f"PumpkinSMP Status | {status}", color=color
-                )
-                embed.add_field(name="Status", value=status)
-                embed.add_field(name="MOTD", value=data["motd"]["clean"][0])
-                embed.add_field(name="Online Players", value=data["players"]["online"])
-                embed.add_field(name="Max Players", value=data["players"]["max"])
-                embed.set_image(url="http://status.mclive.eu/PumpkinSMP/play.pumpkinsmp.gq/25577/banner.png")
-                await interaction.send(embed=embed)
+    @server.command()
+    @commands.has_role(981560939415478372)
+    async def stop(self, ctx):
+        try:
+            async with ctx.typing():
+                servers = self.api.client.servers.list_servers()
+                srv_id = servers[0]["attributes"]["identifier"]
+                self.api.client.servers.send_power_action(srv_id, "stop")
+            await ctx.send("Stopping server.")
+        except:
+            await ctx.send("Failed to stop server.")
+
+    @server.command()
+    @commands.has_role(981560939415478372)
+    async def kill(self, ctx):
+        try:
+            async with ctx.typing():
+                servers = self.api.client.servers.list_servers()
+                srv_id = servers[0]["attributes"]["identifier"]
+                self.api.client.servers.send_power_action(srv_id, "kill")
+            await ctx.send("Killed server.")
+        except:
+            await ctx.send("Failed to kill server.")
+
+    @server.command()
+    @commands.has_role(981560939415478372)
+    async def restart(self, ctx):
+        try:
+            async with ctx.typing():
+                servers = self.api.client.servers.list_servers()
+                srv_id = servers[0]["attributes"]["identifier"]
+                self.api.client.servers.send_power_action(srv_id, "restart")
+            await ctx.send("Restarting server.")
+        except:
+            await ctx.send("Failed to restart server.")
 
 
 def setup(bot):
