@@ -185,7 +185,7 @@ python-versions = "*"
 astunparse = ">=1.6.3,<2.0.0"
 
 [package.extras]
-test = ["pytest", "pytest-cov"]
+test = ["pytest-cov", "pytest"]
 
 [[package]]
 name = "importlib-metadata"
@@ -266,7 +266,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "nextcord"
-version = "2.0.0a10"
+version = "2.1.0"
 description = "A Python wrapper for the Discord API forked from discord.py"
 category = "main"
 optional = false
@@ -274,9 +274,10 @@ python-versions = ">=3.8.0"
 
 [package.dependencies]
 aiohttp = ">=3.8.0,<4.0.0"
+typing_extensions = ">=4.2.0,<5"
 
 [package.extras]
-docs = ["sphinx (==4.0.2)", "sphinxcontrib_trio (==1.1.2)", "sphinxcontrib-websupport"]
+docs = ["sphinx (==5.0.1)", "sphinxcontrib_trio (==1.1.2)", "sphinxcontrib-websupport", "typing_extensions (>=4.2.0,<5)"]
 speed = ["orjson (>=3.5.4)", "aiodns (>=1.1)", "brotli", "cchardet"]
 voice = ["PyNaCl (>=1.3.0,<1.5)"]
 
@@ -409,7 +410,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "45418e996575965e756060147d73bee6d3f99ab669e377fae33150ffa29ad5d9"
+content-hash = "a086462f30b261c4232c6166de0921e3e2e22fc5433f0c2fe1e3f4a20e0d6cdf"
 
 [metadata.files]
 aiodns = [
@@ -541,7 +542,10 @@ cchardet = [
     {file = "cchardet-2.1.7-cp39-cp39-win_amd64.whl", hash = "sha256:24974b3e40fee9e7557bb352be625c39ec6f50bc2053f44a3d1191db70b51675"},
     {file = "cchardet-2.1.7.tar.gz", hash = "sha256:c428b6336545053c2589f6caf24ea32276c6664cb86db817e03a94c60afa0eaf"},
 ]
-certifi = []
+certifi = [
+    {file = "certifi-2022.6.15-py3-none-any.whl", hash = "sha256:fe86415d55e84719d75f8b69414f6438ac3547d2078ab91b67e779ef69378412"},
+    {file = "certifi-2022.6.15.tar.gz", hash = "sha256:84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"},
+]
 cffi = [
     {file = "cffi-1.15.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:c2502a1a03b6312837279c8c1bd3ebedf6c12c4228ddbad40912d671ccc8a962"},
     {file = "cffi-1.15.0-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:23cfe892bd5dd8941608f93348c0737e369e51c100d03718f108bf1add7bd6d0"},
@@ -802,9 +806,12 @@ multidict = [
     {file = "multidict-6.0.2.tar.gz", hash = "sha256:5ff3bd75f38e4c43f1f470f2df7a4d430b821c4ce22be384e1459cb57d6bb013"},
 ]
 nextcord = [
-    {file = "nextcord-2.0.0a10.tar.gz", hash = "sha256:5126ac396748df07df7c32c2d4dadf060d29f794c35762609228e19b85a58cdf"},
+    {file = "nextcord-2.1.0.tar.gz", hash = "sha256:1402662d334e452d56a312240f8d4acfeb26d29e4a320cd8767b9a96e2f461a3"},
 ]
-py-dactyl = []
+py-dactyl = [
+    {file = "py-dactyl-1.1.4.tar.gz", hash = "sha256:1c74c2a2a959eb2c5980f9545239fb0434fd478f5a2c3e19c289ae6b3c430afa"},
+    {file = "py_dactyl-1.1.4-py3-none-any.whl", hash = "sha256:97c6be5a7d7c6265d6f9f40b04a138836f59a0cc438556e1965895ada1873b3b"},
+]
 pycares = [
     {file = "pycares-4.2.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:48c733b8087f618d64b05c5807264ea94987b599cf37688ba59d23c57e197ff1"},
     {file = "pycares-4.2.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4a491bb6c9c6420f3547e89898902e6f67a11ba42ff39026cc94aa238bcc2e67"},
@@ -846,7 +853,10 @@ python-dotenv = [
     {file = "python-dotenv-0.20.0.tar.gz", hash = "sha256:b7e3b04a59693c42c36f9ab1cc2acc46fa5df8c78e178fc33a8d4cd05c8d498f"},
     {file = "python_dotenv-0.20.0-py3-none-any.whl", hash = "sha256:d92a187be61fe482e4fd675b6d52200e7be63a12b724abbf931a40ce4fa92938"},
 ]
-requests = []
+requests = [
+    {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
+    {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
+]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
@@ -855,7 +865,10 @@ typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
     {file = "typing_extensions-4.2.0.tar.gz", hash = "sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376"},
 ]
-urllib3 = []
+urllib3 = [
+    {file = "urllib3-1.26.10-py2.py3-none-any.whl", hash = "sha256:8298d6d56d39be0e3bc13c1c97d133f9b45d797169a0e11cdd0e0489d786f7ec"},
+    {file = "urllib3-1.26.10.tar.gz", hash = "sha256:879ba4d1e89654d9769ce13121e0f94310ea32e8d2f8cf587b77c08bbcdb30d6"},
+]
 werkzeug = [
     {file = "Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
     {file = "Werkzeug-2.1.2.tar.gz", hash = "sha256:1ce08e8093ed67d638d63879fd1ba3735817f7a80de3674d293f5984f25fb6e6"},
