@@ -26,7 +26,7 @@ class Errors(commands.Cog):
         elif isinstance(error, commands.errors.NoPrivateMessage):
             await ctx.reply("This command can not be used in private messages.")
         elif isinstance(error, commands.errors.CommandNotFound):
-            pass
+            await ctx.reply("Not a valid command.")
         elif isinstance(error, commands.errors.TooManyArguments):
             await ctx.reply("Too many arguments.")
         else:

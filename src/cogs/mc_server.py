@@ -45,7 +45,7 @@ class MCServer(commands.Cog):
         try:
             async with ctx.typing():
                 servers = self.api.client.servers.list_servers()
-                srv_id = servers[2]["attributes"]["identifier"]
+                srv_id = servers[0]["attributes"]["identifier"]
                 self.api.client.servers.send_power_action(srv_id, "start")
             await ctx.send("Starting server.")
         except:
@@ -57,7 +57,7 @@ class MCServer(commands.Cog):
         try:
             async with ctx.typing():
                 servers = self.api.client.servers.list_servers()
-                srv_id = servers[2]["attributes"]["identifier"]
+                srv_id = servers[0]["attributes"]["identifier"]
                 self.api.client.servers.send_power_action(srv_id, "stop")
             await ctx.send("Stopping server.")
         except:
@@ -69,7 +69,7 @@ class MCServer(commands.Cog):
         try:
             async with ctx.typing():
                 servers = self.api.client.servers.list_servers()
-                srv_id = servers[2]["attributes"]["identifier"]
+                srv_id = servers[0]["attributes"]["identifier"]
                 self.api.client.servers.send_power_action(srv_id, "kill")
             await ctx.send("Killed server.")
         except:
@@ -81,7 +81,7 @@ class MCServer(commands.Cog):
         try:
             async with ctx.typing():
                 servers = self.api.client.servers.list_servers()
-                srv_id = servers[2]["attributes"]["identifier"]
+                srv_id = servers[0]["attributes"]["identifier"]
                 self.api.client.servers.send_power_action(srv_id, "restart")
             await ctx.send("Restarting server.")
         except:
