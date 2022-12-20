@@ -1,5 +1,5 @@
 from dotenv import dotenv_values
-import os
+import exts.db
 import logging
 import nextcord
 from nextcord.ext import commands
@@ -11,6 +11,7 @@ bot = commands.Bot(
     owner_ids={914452175839723550, 691319007579471902},
 )
 bot.environ = dotenv_values(".env")
+bot.db = exts.db
 
 # Logging setup
 logger = logging.getLogger("nextcord")
@@ -28,7 +29,7 @@ async def on_ready():
     print(f"Logged in as {bot.user} ({bot.user.id})")
 
 
-exts = ["exts.errors", "exts.fun"]
+exts = ["exts.errors", "exts.fun", "exts.suggestions"]
 
 for ext in exts:
     bot.load_extension(ext)
