@@ -12,6 +12,7 @@ bot = commands.Bot(
 )
 bot.environ = dotenv_values(".env")
 bot.db = exts.db
+exts.db.create_table()
 
 # Logging setup
 logger = logging.getLogger("nextcord")
