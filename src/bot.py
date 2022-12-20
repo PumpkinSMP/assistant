@@ -3,15 +3,14 @@ import os
 import logging
 import nextcord
 from nextcord.ext import commands
+import sys
 
-
-prefix = commands.when_mentioned_or("!")
 bot = commands.Bot(
-    command_prefix=prefix,
+    command_prefix="?",
     intents=nextcord.Intents.all(),
     owner_ids={914452175839723550, 691319007579471902},
 )
-bot.env = dotenv_values(".env")
+bot.environ = dotenv_values(".env")
 
 # Logging setup
 logger = logging.getLogger("nextcord")
@@ -22,7 +21,6 @@ handler.setFormatter(
 )
 logger.addHandler(handler)
 bot.logger = logger
-bot.load_extension("jishaku")
 
 
 @bot.event
@@ -30,14 +28,13 @@ async def on_ready():
     print(f"Logged in as {bot.user} ({bot.user.id})")
 
 
-for file in os.listdir("./src/cogs"):
-    """
-    Load all cogs in cogs directory.
-    """
-    if file.endswith(".py"):
-        name = file[:-3]
-        cog = f"cogs.{name}"
-        bot.load_extension(cog)
-        print(f"Loaded extension {name}.")
+exts = ["exts.errors", "exts.fun"]
 
-bot.run(bot.env["TOKEN"])
+for ext in exts:
+    bot.load_extension(ext)
+    print(f"Loaded extension {ext}.")
+    logger.info(f"Loaded extension {ext}.")
+
+if "--ci" in sys.argv:
+    sys.exit(0)
+bot.run(bot.environ["TOKEN"])
