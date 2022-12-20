@@ -1,9 +1,0 @@
-2022-07-11 18:22:02,721:INFO:nextcord.client: logging in using static token
-2022-07-11 18:22:03,783:INFO:nextcord.gateway: Shard ID None has sent the IDENTIFY payload.
-2022-07-11 18:22:04,217:INFO:nextcord.gateway: Shard ID None has connected to Gateway: ["gateway-prd-main-ptpj",{"micros":86104,"calls":["discord-sessions-green-prd-2-74",{"micros":85059,"calls":["start_session",{"micros":65214,"calls":["discord-api-f5c57c6b5-br7bb",{"micros":60726,"calls":["get_user",{"micros":7074},"add_authorized_ip",{"micros":1658},"get_guilds",{"micros":6154},"coros_wait",{"micros":2}]}]},"guilds_connect",{"micros":2,"calls":[]},"presence_connect",{"micros":12236,"calls":[]}]}]}] (Session ID: bcc108f9974c65065c8716528e06a85c).
-2022-07-11 18:22:04,616:INFO:nextcord.state: nextcord.ConnectionState: Unknown command with signature ('bon', 1, None) failed signature check, removing.
-2022-07-11 18:22:05,071:INFO:nextcord.state: nextcord.ConnectionState: Unknown command with signature ('kock', 1, None) failed signature check, removing.
-2022-07-11 18:25:33,156:INFO:nextcord.client: Cleaning up tasks.
-2022-07-11 18:25:33,176:INFO:nextcord.client: Cleaning up after 1 tasks.
-2022-07-11 18:25:33,520:INFO:nextcord.client: All tasks finished cancelling.
-2022-07-11 18:25:33,522:INFO:nextcord.client: Closing the event loop.
