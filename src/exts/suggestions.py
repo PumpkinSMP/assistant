@@ -1,4 +1,4 @@
-from nextcord.ext import commands, application_checks
+from nextcord.ext import commands
 import nextcord
 
 
@@ -8,7 +8,7 @@ class Suggestions(commands.Cog):
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, suggestion: str):
-        suggestion_channel = ctx.guild.get_channel(981510059181883405)
+        suggestion_channel = ctx.guild.get_channel(934852695385337866)
         new_id = self.bot.db.get_new_suggestion_id()
         embed = nextcord.Embed(
             title=f"Suggestion #{new_id}", colour=nextcord.Colour.yellow()
@@ -70,7 +70,7 @@ class Suggestions(commands.Cog):
         if suggestion_info[3] != "pending":
             await ctx.send("That suggestion is not pending!", delete_after=10)
             return
-        suggestion_msg = await ctx.guild.get_channel(981510059181883405).fetch_message(
+        suggestion_msg = await ctx.guild.get_channel(934852695385337866).fetch_message(
             suggestion_info[4].split("/")[-1]
         )
         embed = suggestion_msg.embeds[0]
@@ -99,7 +99,7 @@ class Suggestions(commands.Cog):
         if suggestion_info[3] != "pending":
             await ctx.send("That suggestion is not pending!", delete_after=10)
             return
-        suggestion_msg = await ctx.guild.get_channel(981510059181883405).fetch_message(
+        suggestion_msg = await ctx.guild.get_channel(934852695385337866).fetch_message(
             suggestion_info[4].split("/")[-1]
         )
         embed = suggestion_msg.embeds[0]
@@ -121,7 +121,7 @@ class Suggestions(commands.Cog):
     async def on_raw_reaction_add(self, payload: nextcord.RawReactionActionEvent):
         if payload.user_id == self.bot.user.id:
             return
-        if payload.channel_id != 981510059181883405:
+        if payload.channel_id != 934852695385337866:
             return
         if payload.emoji.name != "💬":
             return
