@@ -8,7 +8,7 @@ class Suggestions(commands.Cog):
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, suggestion: str):
-        suggestion_channel = ctx.guild.get_channel(934852695385337866)
+        suggestion_channel = ctx.guild.get_channel(981510059181883405)
         new_id = self.bot.db.get_new_suggestion_id()
         embed = nextcord.Embed(
             title=f"Suggestion #{new_id}", colour=nextcord.Colour.yellow()
@@ -19,6 +19,7 @@ class Suggestions(commands.Cog):
         message = await suggestion_channel.send(embed=embed)
         await message.add_reaction("👍")
         await message.add_reaction("👎")
+        await message.add_reaction("💬")
         self.bot.db.insert_suggestion(
             ctx.author.id, suggestion, "pending", message.jump_url
         )
@@ -69,7 +70,7 @@ class Suggestions(commands.Cog):
         if suggestion_info[3] != "pending":
             await ctx.send("That suggestion is not pending!", delete_after=10)
             return
-        suggestion_msg = await ctx.guild.get_channel(934852695385337866).fetch_message(
+        suggestion_msg = await ctx.guild.get_channel(981510059181883405).fetch_message(
             suggestion_info[4].split("/")[-1]
         )
         embed = suggestion_msg.embeds[0]
@@ -79,6 +80,12 @@ class Suggestions(commands.Cog):
             embed.add_field(name="Note", value=note)
         self.bot.db.update_suggestion(suggestion_id, "approved", note)
         await suggestion_msg.edit(embed=embed)
+        await suggestion_msg.remove_reaction("💬", self.bot.user)
+        if suggestion_msg.thread is not None:
+            await suggestion_msg.thread.send(
+                "Locking thread as the suggestion has been rejected! Please create a new thread if you have any questions!"
+            )
+            await suggestion_msg.thread.edit(locked=True)
         await ctx.send("Suggestion approved!")
 
     @suggestion.command()
@@ -92,7 +99,7 @@ class Suggestions(commands.Cog):
         if suggestion_info[3] != "pending":
             await ctx.send("That suggestion is not pending!", delete_after=10)
             return
-        suggestion_msg = await ctx.guild.get_channel(934852695385337866).fetch_message(
+        suggestion_msg = await ctx.guild.get_channel(981510059181883405).fetch_message(
             suggestion_info[4].split("/")[-1]
         )
         embed = suggestion_msg.embeds[0]
@@ -102,7 +109,42 @@ class Suggestions(commands.Cog):
             embed.add_field(name="Note", value=note)
         self.bot.db.update_suggestion(suggestion_id, "rejected", note)
         await suggestion_msg.edit(embed=embed)
+        await suggestion_msg.remove_reaction("💬", self.bot.user)
+        if suggestion_msg.thread is not None:
+            await suggestion_msg.thread.send(
+                "Locking thread as the suggestion has been rejected! Please create a new thread if you have any questions!"
+            )
+            await suggestion_msg.thread.edit(locked=True)
         await ctx.send("Suggestion rejected!")
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload: nextcord.RawReactionActionEvent):
+        if payload.user_id == self.bot.user.id:
+            return
+        if payload.channel_id != 981510059181883405:
+            return
+        if payload.emoji.name != "💬":
+            return
+
+        message = await self.bot.get_channel(payload.channel_id).fetch_message(
+            payload.message_id
+        )
+        if message.author.id != self.bot.user.id:
+            return
+        if message.thread is not None:
+            await message.remove_reaction(payload.emoji, payload.member)
+            return
+        suggestion_info = self.bot.db.get_suggestion(
+            int(message.embeds[0].title.split("#")[1])
+        )
+        if suggestion_info[3] != "pending":
+            return
+        thread = await message.create_thread(name=f"Suggestion #{suggestion_info[0]}")
+        await thread.send(
+            f"{message.guild.get_member(payload.user_id).mention} has started a thread for this suggestion!"
+        )
+        await thread.add_user(message.guild.get_member(suggestion_info[1]))
+        await message.remove_reaction(payload.emoji, payload.member)
 
 
 def setup(bot):
