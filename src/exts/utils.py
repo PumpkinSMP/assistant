@@ -15,7 +15,7 @@ class Utils(commands.Cog):
             yield embed
 
     @commands.command()
-    @commands.has_permission(administrator=True)
+    @commands.has_permissions(administrator=True)
     async def esend(self, ctx, embed: str):
         with open(f"embeds/{embed}.json", "r") as file:
             embeds = self.parse_embed_json(file.read())
