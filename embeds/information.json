@@ -1,0 +1,25 @@
+{
+    "content": "",
+    "embeds": [
+        {
+            "fields": [
+                {
+                    "name": "Server IP",
+                    "value": "`play.pumpkinsmp.fun`",
+                    "inline": false
+                },
+                {
+                    "name": "Server Ports",
+                    "value": "Java Edition Port: `25565`\nBedrock Edition Port: `19132`"
+                },
+                {
+                    "name": "Voting Links",
+                    "value": "**1.** https://www.pumpkinsmp.fun/vote/1\n**2.** https://www.pumpkinsmp.fun/vote/2\n**3.** https://www.pumpkinsmp.fun/vote/3\n**4.** https://www.pumpkinsmp.fun/vote/4\n**5.** https://www.pumpkinsmp.fun/vote/5"
+                }
+            ],
+            "title": "PumpkinSMP Information",
+            "color": 3553599
+        }
+    ],
+    "components": []
+}

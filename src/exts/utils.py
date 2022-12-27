@@ -1,6 +1,7 @@
 import nextcord
 from nextcord.ext import commands
-from json import loads
+import json
+import io
 
 
 class Utils(commands.Cog):
@@ -8,23 +9,46 @@ class Utils(commands.Cog):
         self.bot = bot
 
     def parse_embed_json(self, json_file):
-        embeds_json = loads(json_file)["embeds"]
+        embeds_json = json.loads(json_file)["embeds"]
 
         for embed_json in embeds_json:
             embed = nextcord.Embed().from_dict(embed_json)
             yield embed
+    
+    async def get_embed_from_message(
+        self, ctx: commands.Context, message: nextcord.Message, index: int = 0
+    ):
+        embeds = message.embeds
+        if not embeds:
+            return await ctx.send("That message has no embeds.")
+        index = max(min(index, len(embeds)), 0)
+        embed = message.embeds[index]
+        if embed.type == "rich":
+            return embed
+        return await ctx.send("That is not a rich embed.")
 
-    @commands.command()
+    @commands.group()
     @commands.has_permissions(administrator=True)
-    async def esend(self, ctx, embed: str):
+    async def embed(self, ctx: commands.Context):
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
+
+    @embed.command()
+    @commands.has_permissions(administrator=True)
+    async def send(self, ctx: commands.Context, embed: str):
         with open(f"embeds/{embed}.json", "r") as file:
             embeds = self.parse_embed_json(file.read())
         embeds = list(embeds)
-        if embed == "rules":
-            for embed in embeds:
-                embed.colour = nextcord.Colour.dark_theme()
         await ctx.send(embeds=embeds)
-
+    
+    @embed.command()
+    @commands.has_permissions(administrator=True)
+    async def download(self, ctx: commands.Context, message: nextcord.Message, index: int = 0):
+        embed = await self.get_embed_from_message(ctx, message, index)
+        data = embed.to_dict()
+        data = json.dumps(data, indent=4)
+        fp = io.BytesIO(bytes(data, "utf-8"))
+        await ctx.send(file=nextcord.File(fp, "embed.json"))
 
 def setup(bot):
     bot.add_cog(Utils(bot))
