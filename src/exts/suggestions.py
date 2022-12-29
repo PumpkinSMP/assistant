@@ -7,7 +7,7 @@ class Suggestions(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def suggest(self, ctx: commands.Context, suggestion: str):
+    async def suggest(self, ctx: commands.Context, *, suggestion: str):
         suggestion_channel = ctx.guild.get_channel(934852695385337866)
         new_id = self.bot.db.get_new_suggestion_id()
         embed = nextcord.Embed(
