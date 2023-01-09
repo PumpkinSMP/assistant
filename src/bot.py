@@ -30,7 +30,7 @@ async def on_ready():
     print(f"Logged in as {bot.user} ({bot.user.id})")
 
 
-exts = ["exts.errors", "exts.fun", "exts.suggestions", "exts.utils"]
+exts = ["exts.errors", "exts.fun", "exts.suggestions", "exts.utils", "exts.logs"]
 
 for ext in exts:
     bot.load_extension(ext)
