@@ -13,6 +13,8 @@ class Logs(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: nextcord.Message):
+      if before.channel.id in [1052178682426433600] and before.author.id in [960850854506815528]:
+        return
       channel = self.bot.get_channel(self.get_logs_channel("message"))
       embed = nextcord.Embed(
         title="Message Deleted",
@@ -30,6 +32,8 @@ class Logs(commands.Cog):
   
     @commands.Cog.listener()
     async def on_message_edit(self, before: nextcord.Message, after: nextcord.Message):
+      if before.channel.id in [1052178682426433600] and before.author.id in [960850854506815528]:
+        return
       channel = self.bot.get_channel(self.get_logs_channel("message"))
       embed = nextcord.Embed(
         title="Message Edited",
