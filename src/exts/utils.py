@@ -2,6 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import json
 import io
+import typing
 
 
 class Utils(commands.Cog):
@@ -14,7 +15,7 @@ class Utils(commands.Cog):
         for embed_json in embeds_json:
             embed = nextcord.Embed().from_dict(embed_json)
             yield embed
-    
+
     async def get_embed_from_message(
         self, ctx: commands.Context, message: nextcord.Message, index: int = 0
     ):
@@ -40,15 +41,47 @@ class Utils(commands.Cog):
             embeds = self.parse_embed_json(file.read())
         embeds = list(embeds)
         await ctx.send(embeds=embeds)
-    
+
     @embed.command()
     @commands.has_permissions(administrator=True)
-    async def download(self, ctx: commands.Context, message: nextcord.Message, index: int = 0):
+    async def download(
+        self, ctx: commands.Context, message: nextcord.Message, index: int = 0
+    ):
         embed = await self.get_embed_from_message(ctx, message, index)
         data = embed.to_dict()
         data = json.dumps(data, indent=4)
         fp = io.BytesIO(bytes(data, "utf-8"))
         await ctx.send(file=nextcord.File(fp, "embed.json"))
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def say(
+        self,
+        ctx: commands.Context,
+        destination: commands.Greedy[
+            typing.Union[nextcord.TextChannel, nextcord.User]
+        ] = None,
+        *,
+        message: str,
+    ):
+        if destination is None:
+            destination = ctx.channel
+        mentions = []
+        if type(destination) is list:
+            for dest in destination:
+                await dest.send(message)
+                mentions.append(dest.mention)
+        else:
+            await destination.send(message)
+        await ctx.reply(
+            f"Message sent to {str(mentions)[1:-1]}.",
+            allowed_mentions=nextcord.AllowedMentions(
+                users=False, roles=False, everyone=False, replied_user=True
+            ),
+            delete_after=5,
+        )
+        await ctx.message.delete()
+
 
 def setup(bot):
     bot.add_cog(Utils(bot))

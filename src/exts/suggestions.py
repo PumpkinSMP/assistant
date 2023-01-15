@@ -90,7 +90,9 @@ class Suggestions(commands.Cog):
 
     @suggestion.command()
     @commands.has_guild_permissions(administrator=True)
-    async def reject(self, ctx: commands.Context, suggestion_id: int, *, note: str = None):
+    async def reject(
+        self, ctx: commands.Context, suggestion_id: int, *, note: str = None
+    ):
 
         suggestion_info = self.bot.db.get_suggestion(suggestion_id)
         if suggestion_info is None:

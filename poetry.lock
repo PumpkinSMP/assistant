@@ -109,6 +109,14 @@ python-versions = "*"
 pycparser = "*"
 
 [[package]]
+name = "cfgv"
+version = "3.3.1"
+description = "Validate configuration and produce human readable error messages."
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[[package]]
 name = "charset-normalizer"
 version = "2.1.1"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
@@ -139,12 +147,43 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
 [[package]]
+name = "distlib"
+version = "0.3.6"
+description = "Distribution utilities"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "filelock"
+version = "3.9.0"
+description = "A platform independent file lock."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo (>=2022.12.7)", "sphinx-autodoc-typehints (>=1.19.5)", "sphinx (>=5.3)"]
+testing = ["covdefaults (>=2.2.2)", "coverage (>=7.0.1)", "pytest-cov (>=4)", "pytest-timeout (>=2.1)", "pytest (>=7.2)"]
+
+[[package]]
 name = "frozenlist"
 version = "1.3.3"
 description = "A list-like structure which implements collections.abc.MutableSequence"
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "identify"
+version = "2.5.12"
+description = "File identification library for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+license = ["ukkonen"]
 
 [[package]]
 name = "idna"
@@ -232,6 +271,41 @@ speed = ["orjson (>=3.5.4)", "aiodns (>=1.1)", "brotli", "cchardet"]
 voice = ["PyNaCl (>=1.3.0,<1.5)"]
 
 [[package]]
+name = "nodeenv"
+version = "1.7.0"
+description = "Node.js virtual environment builder"
+category = "dev"
+optional = false
+python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*"
+
+[[package]]
+name = "platformdirs"
+version = "2.6.2"
+description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo (>=2022.12.7)", "proselint (>=0.13)", "sphinx-autodoc-typehints (>=1.19.5)", "sphinx (>=5.3)"]
+test = ["appdirs (==1.4.4)", "covdefaults (>=2.2.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest (>=7.2)"]
+
+[[package]]
+name = "pre-commit"
+version = "2.21.0"
+description = "A framework for managing and maintaining multi-language pre-commit hooks."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+cfgv = ">=2.0.0"
+identify = ">=1.0.0"
+nodeenv = ">=0.11.1"
+pyyaml = ">=5.1"
+virtualenv = ">=20.10.0"
+
+[[package]]
 name = "py-dactyl"
 version = "1.2.1"
 description = "An easy to use Python wrapper for the Pterodactyl Panel API."
@@ -274,6 +348,14 @@ python-versions = ">=3.5"
 
 [package.extras]
 cli = ["click (>=5.0)"]
+
+[[package]]
+name = "pyyaml"
+version = "6.0"
+description = "YAML parser and emitter for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "requests"
@@ -323,6 +405,23 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "virtualenv"
+version = "20.17.1"
+description = "Virtual Python Environment builder"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+distlib = ">=0.3.6,<1"
+filelock = ">=3.4.1,<4"
+platformdirs = ">=2.4,<3"
+
+[package.extras]
+docs = ["proselint (>=0.13)", "sphinx (>=5.3)", "sphinx-argparse (>=0.3.2)", "sphinx-rtd-theme (>=1)", "towncrier (>=22.8)"]
+testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=21.3)", "pytest (>=7.0.1)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.6.1)", "pytest-randomly (>=3.10.3)", "pytest-timeout (>=2.1)"]
+
+[[package]]
 name = "yarl"
 version = "1.8.2"
 description = "Yet another URL library"
@@ -349,7 +448,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "0ee4164e041cd53bd85bb09f2b022d7affa773180666a497ac4d58a582aa790e"
+content-hash = "af8506b9807079506b9fe4f45e13ee9e3866e527c21e60018e1cf34fceb70431"
 
 [metadata.files]
 aiodns = []
@@ -362,23 +461,32 @@ braceexpand = []
 cchardet = []
 certifi = []
 cffi = []
+cfgv = []
 charset-normalizer = []
 click = []
 colorama = []
+distlib = []
+filelock = []
 frozenlist = []
+identify = []
 idna = []
 import-expression = []
 importlib-metadata = []
 jishaku = []
 multidict = []
 nextcord = []
+nodeenv = []
+platformdirs = []
+pre-commit = []
 py-dactyl = []
 pycares = []
 pycparser = []
 python-dotenv = []
+pyyaml = []
 requests = []
 six = []
 typing-extensions = []
 urllib3 = []
+virtualenv = []
 yarl = []
 zipp = []
