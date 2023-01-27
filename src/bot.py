@@ -36,7 +36,8 @@ exts = [
     "exts.suggestions",
     "exts.utils",
     "exts.logs",
-    "exts.pterodactyl",
+    "exts.reactroles",
+    "exts.mod",
     "jishaku",
 ]
 

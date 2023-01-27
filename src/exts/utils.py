@@ -82,6 +82,12 @@ class Utils(commands.Cog):
         )
         await ctx.message.delete()
 
+    @commands.Cog.listener(name="on_message")
+    async def auto_publish(self, message: nextcord.Message):
+        channels = [935419279963205662, 1056600527053525083, 935419748446007346]
+        if message.channel.id in channels:
+            await message.publish()
+
 
 def setup(bot):
     bot.add_cog(Utils(bot))
