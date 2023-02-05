@@ -38,6 +38,7 @@ exts = [
     "exts.logs",
     "exts.reactroles",
     "exts.mod",
+    "exts.reports",
     "jishaku",
 ]
 
