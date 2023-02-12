@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import json
 import io
 import typing
+import aiohttp
 
 
 class Utils(commands.Cog):
@@ -81,6 +82,54 @@ class Utils(commands.Cog):
             delete_after=5,
         )
         await ctx.message.delete()
+
+    @commands.command()
+    @commands.cooldown(2, 5, commands.BucketType.user)
+    async def ubdict(self, ctx: commands.Context, *, word: str):
+        """Search for a word in the Urban Dictionary"""
+        params = {"term": word}
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                "https://api.urbandictionary.com/v0/define", params=params
+            ) as response:
+                data = await response.json()
+        if not data["list"]:
+            return await ctx.send("No results found.")
+        embed = nextcord.Embed(
+            title=data["list"][0]["word"],
+            description=data["list"][0]["definition"],
+            url=data["list"][0]["permalink"],
+            color=nextcord.Color.green(),
+        )
+        embed.set_footer(
+            text=f"👍 {data['list'][0]['thumbs_up']} | 👎 {data['list'][0]['thumbs_down']} | Powered by: Urban Dictionary"
+        )
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(2, 5, commands.BucketType.user)
+    async def dict(self, ctx: commands.Context, *, word: str):
+        """Search for a word in the Oxford Dictionary"""
+        app_id = self.bot.environ["OXFORD_APP_ID"]
+        app_key = self.bot.environ["OXFORD_APP_KEY"]
+        headers = {"app_id": app_id, "app_key": app_key}
+        url = "https://od-api.oxforddictionaries.com/api/v2/entries/en-us"
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                f"{url}/{word.lower()}", headers=headers
+            ) as response:
+                data = await response.json()
+        if not data:
+            return await ctx.send("No results found.")
+        embed = nextcord.Embed(
+            title=data["results"][0]["word"],
+            description=data["results"][0]["lexicalEntries"][0]["entries"][0]["senses"][
+                0
+            ]["definitions"][0],
+            color=nextcord.Color.green(),
+        )
+        embed.set_footer(text=f"Powered by: Oxford Languages")
+        await ctx.send(embed=embed)
 
     @commands.Cog.listener(name="on_message")
     async def auto_publish(self, message: nextcord.Message):
