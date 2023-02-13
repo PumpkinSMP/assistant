@@ -4,6 +4,8 @@ import json
 import io
 import typing
 import aiohttp
+import exts.config as cfg
+import nextcord.utils
 
 
 class Utils(commands.Cog):
@@ -130,6 +132,69 @@ class Utils(commands.Cog):
         )
         embed.set_footer(text=f"Powered by: Oxford Languages")
         await ctx.send(embed=embed)
+
+    @commands.group()
+    @commands.has_permissions(administrator=True)
+    async def changelog(self, ctx: commands.Context):
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
+
+    @changelog.command()
+    @commands.has_permissions(administrator=True)
+    async def new(self, ctx: commands.Context, type: str, *, message: str):
+        if type not in ["minecraft", "discord", "global", "website"]:
+            return await ctx.send("Invalid type.")
+        config = cfg.Config("config.json")
+        config.load()
+        if not config.data["changelog_channel"]:
+            return await ctx.send("Changelog channel not set.")
+        channel: nextcord.Channel = nextcord.utils.get(
+            ctx.guild.channels,
+            id=config.data["changelog_channel"],
+        )
+        if not channel:
+            return await ctx.send("Changelog channel not found.")
+        ping_role: nextcord.Role = nextcord.utils.get(
+            ctx.guild.roles, id=config.data["ping_role"]
+        )
+        embed = nextcord.Embed(
+            title=f"{type.title()} Changelog",
+            description=message,
+            color=nextcord.Color.green(),
+        )
+        embed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        if type == "minecraft":
+            embed.set_thumbnail(url="https://i.ibb.co/YpKPWdS/minecraft-logo-1022.png")
+        elif type == "discord":
+            embed.set_thumbnail(
+                url="https://i.ibb.co/fnt93Gp/discord-logo-png-7617.png"
+            )
+        elif type == "website":
+            embed.set_thumbnail(url="https://i.ibb.co/tZGCmhx/logo-websites-31322.png")
+        elif type == "global":
+            embed.set_thumbnail(url="https://i.ibb.co/qWbLvbK/pumpkinsmp-bot-logo.png")
+        embed.set_footer(text=f"ID: {ctx.author.id}")
+        if not ping_role:
+            return await channel.send(embed=embed)
+        await channel.send(ping_role.mention, embed=embed)
+
+    @changelog.command()
+    @commands.has_permissions(administrator=True)
+    async def channel(self, ctx: commands.Context, channel: nextcord.TextChannel):
+        config = cfg.Config("config.json")
+        config.load()
+        config.data["changelog_channel"] = channel.id
+        config.save()
+        await ctx.send(f"Changelog channel set to {channel.mention}.")
+
+    @changelog.command()
+    @commands.has_permissions(administrator=True)
+    async def ping(self, ctx: commands.Context, role: nextcord.Role):
+        config = cfg.Config("config.json")
+        config.load()
+        config.data["ping_role"] = role.id
+        config.save()
+        await ctx.send(f"Ping role set to {role.mention}.")
 
     @commands.Cog.listener(name="on_message")
     async def auto_publish(self, message: nextcord.Message):
