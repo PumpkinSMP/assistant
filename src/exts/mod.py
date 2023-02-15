@@ -6,15 +6,22 @@ import exts.config as config
 class Moderation(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.config = config.Config("moderation.json")
+        self.config = config.Config("config.json")
+        self.config.load()
+        if "moderation" not in self.config.data:
+            self.config.data["moderation"] = {}
+            self.config.save()
+        if "softmute" not in self.config.data["moderation"]:
+            self.config.data["moderation"]["softmute"] = {}
+            self.config.save()
 
     @commands.command()
     @commands.has_permissions(moderate_members=True)
     async def softmute(self, ctx: commands.Context, member: nextcord.Member):
         self.config.load()
-        if str(member.id) not in self.config.data:
-            self.config.data[str(member.id)] = {}
-        self.config.data[str(member.id)]["softmute"] = True
+        if str(member.id) not in self.config.data["moderation"]["softmute"]:
+            self.config.data["moderation"]["softmute"][str(member.id)] = {}
+        self.config.data["moderation"]["softmute"][str(member.id)]["softmute"] = True
         self.config.save()
         await ctx.send(
             f"Soft-muted {member.mention}",
@@ -25,9 +32,11 @@ class Moderation(commands.Cog):
     @commands.has_permissions(moderate_members=True)
     async def softunmute(self, ctx: commands.Context, member: nextcord.Member):
         self.config.load()
-        if str(member.id) in self.config.data:
-            if "softmute" in self.config.data[str(member.id)]:
-                del self.config.data[str(member.id)]["softmute"]
+        if str(member.id) in self.config.data["moderation"]["softmute"]:
+            if "softmute" in self.config.data["moderation"]["softmute"][str(member.id)]:
+                del self.config.data["moderation"]["softmute"][str(member.id)][
+                    "softmute"
+                ]
                 self.config.save()
                 await ctx.send(
                     f"Soft-unmuted {member.mention}",
@@ -43,8 +52,11 @@ class Moderation(commands.Cog):
         if message.author.bot:
             return
         self.config.load()
-        if str(message.author.id) in self.config.data:
-            if "softmute" in self.config.data[str(message.author.id)]:
+        if str(message.author.id) in self.config.data["moderation"]["softmute"]:
+            if (
+                "softmute"
+                in self.config.data["moderation"]["softmute"][str(message.author.id)]
+            ):
                 await message.delete()
                 await message.author.send(
                     "We are having some issues processing your message. Please try again later."
@@ -55,8 +67,11 @@ class Moderation(commands.Cog):
         if before.author.bot:
             return
         self.config.load()
-        if str(before.author.id) in self.config.data:
-            if "softmute" in self.config.data[str(before.author.id)]:
+        if str(before.author.id) in self.config.data["moderation"]["softmute"]:
+            if (
+                "softmute"
+                in self.config.data["moderation"]["softmute"][str(before.author.id)]
+            ):
                 await after.delete()
                 await before.author.send(
                     "We are having some issues processing your message. Please try again later."

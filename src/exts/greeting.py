@@ -10,10 +10,13 @@ class Greeting(commands.Cog):
         self.config.load()
         if "greeting" not in self.config.data:
             self.config.data["greeting"] = {}
+            self.config.save()
         if "welcome" not in self.config.data["greeting"]:
             self.config.data["greeting"]["welcome"] = {}
+            self.config.save()
         if "farewell" not in self.config.data["greeting"]:
             self.config.data["greeting"]["farewell"] = {}
+            self.config.save()
 
     async def greet(self, member: nextcord.Member, type: str):
         """
