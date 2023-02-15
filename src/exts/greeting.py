@@ -36,6 +36,9 @@ class Greeting(commands.Cog):
             return
         placeholders = {
             "{member}": member.mention,
+            "{username}": member.name,
+            "{discriminator}": member.discriminator,
+            "{id}": member.id,
             "{guild}": member.guild.name,
             "{membercount}": member.guild.member_count,
         }
