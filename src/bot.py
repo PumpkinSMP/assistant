@@ -39,6 +39,9 @@ exts = [
     "exts.reactroles",
     "exts.mod",
     "exts.reports",
+    "exts.pterodactyl",
+    "exts.help",
+    "exts.greeting",
     "jishaku",
 ]
 

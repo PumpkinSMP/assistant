@@ -173,7 +173,9 @@ class Utils(commands.Cog):
             embed.set_thumbnail(url="https://i.ibb.co/tZGCmhx/logo-websites-31322.png")
         elif type == "global":
             embed.set_thumbnail(url="https://i.ibb.co/qWbLvbK/pumpkinsmp-bot-logo.png")
-        embed.set_footer(text=f"ID: {ctx.author.id}")
+        embed.set_footer(text=f"Timestamp: {ctx.message.created_at}")
+        if ctx.message.attachments:
+            embed.set_image(url=ctx.message.attachments[0].url)
         if not ping_role:
             return await channel.send(embed=embed)
         await channel.send(ping_role.mention, embed=embed)
