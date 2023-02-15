@@ -1,0 +1,17 @@
+2023-02-15 19:57:37,041:INFO:nextcord: Loaded extension exts.errors.
+2023-02-15 19:57:37,044:INFO:nextcord: Loaded extension exts.fun.
+2023-02-15 19:57:37,050:INFO:nextcord: Loaded extension exts.suggestions.
+2023-02-15 19:57:37,059:INFO:nextcord: Loaded extension exts.utils.
+2023-02-15 19:57:37,062:INFO:nextcord: Loaded extension exts.logs.
+2023-02-15 19:57:37,069:INFO:nextcord: Loaded extension exts.reactroles.
+2023-02-15 19:57:37,116:INFO:nextcord: Loaded extension exts.mod.
+2023-02-15 19:57:37,122:INFO:nextcord: Loaded extension exts.reports.
+2023-02-15 19:57:37,642:INFO:nextcord: Loaded extension exts.pterodactyl.
+2023-02-15 19:57:37,672:INFO:nextcord: Loaded extension exts.help.
+2023-02-15 19:57:37,699:INFO:nextcord: Loaded extension exts.greeting.
+2023-02-15 19:57:37,913:INFO:nextcord: Loaded extension jishaku.
+2023-02-15 19:57:37,916:INFO:nextcord.client: logging in using static token
+2023-02-15 19:57:38,307:INFO:nextcord.client: Cleaning up tasks.
+2023-02-15 19:57:38,308:INFO:nextcord.client: Cleaning up after 1 tasks.
+2023-02-15 19:57:38,322:INFO:nextcord.client: All tasks finished cancelling.
+2023-02-15 19:57:38,323:INFO:nextcord.client: Closing the event loop.

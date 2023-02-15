@@ -4,6 +4,7 @@ import logging
 import nextcord
 from nextcord.ext import commands
 import sys
+import os
 
 bot = commands.Bot(
     command_prefix="?",
@@ -17,7 +18,7 @@ exts.db.create_table()
 # Logging setup
 logger = logging.getLogger("nextcord")
 logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename="log/nextcord.log", encoding="utf-8", mode="w")
+handler = logging.FileHandler(filename="nextcord.log", encoding="utf-8", mode="w")
 handler.setFormatter(
     logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s")
 )
@@ -44,6 +45,10 @@ exts = [
     "exts.greeting",
     "jishaku",
 ]
+
+if not os.path.isfile("config.json"):
+    with open("config.json", "w") as f:
+        f.write("{}")
 
 for ext in exts:
     bot.load_extension(ext)
