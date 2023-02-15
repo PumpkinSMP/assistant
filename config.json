@@ -1,4 +1,16 @@
 {
     "reports_channel": 994559351312371762,
-    "report_bans": []
+    "report_bans": [],
+    "changelog_channel": 991250182299713638,
+    "ping_role": 1068547923866026054,
+    "greeting": {
+        "welcome": {
+            "channel": 992740223723253810,
+            "message": "hi {member} welcome to {guild} with {membercount}"
+        },
+        "farewell": {
+            "message": "bye {member} from {guild} with {membercount}",
+            "channel": 992740223723253810
+        }
+    }
 }

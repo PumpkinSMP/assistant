@@ -12,3 +12,5 @@ pip-delete-this-directory.txt
 
 .env
 venv/
+.vscode
+config.json
