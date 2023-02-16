@@ -41,8 +41,11 @@ class Reports(commands.Cog):
             icon_url=ctx.author.avatar.url,
         )
         channel = self.bot.get_channel(self.config.data["reports_channel"])
-        await channel.send(embed=embed)
-        await ctx.send("Report sent!", delete_after=3)
+        if len(ctx.message.attachments) > 10:
+            return await ctx.send("You can only send 10 attachments at a time.")
+        files = [await attachment.to_file() for attachment in ctx.message.attachments]
+        await channel.send(embed=embed, files=files)
+        await ctx.author.send("The report has been sent.")
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)
