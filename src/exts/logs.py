@@ -33,10 +33,12 @@ class Logs(commands.Cog):
         embed.add_field(name="Message", value=f"```{message.content}```", inline=False)
         embed.set_author(name=message.author, icon_url=message.author.avatar.url)
         embed.set_footer(text=f"Message ID: {message.id} | Time: {message.created_at}")
+        attachments = []
         if message.attachments:
-            await channel.send(embed=embed, attachments=message.attachments)
-            return
-        await channel.send(embed=embed)
+            attachments = [
+                await attachment.to_file() for attachment in message.attachments
+            ]
+        await channel.send(embed=embed, attachments=attachments)
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: nextcord.Message, after: nextcord.Message):
@@ -62,10 +64,12 @@ class Logs(commands.Cog):
         embed.add_field(name="After", value=f"```{after.content}```", inline=False)
         embed.set_author(name=before.author, icon_url=before.author.avatar.url)
         embed.set_footer(text=f"Message ID: {before.id} | Time: {before.created_at}")
+        attachments = []
         if before.attachments:
-            await channel.send(embed=embed, attachments=before.attachments)
-            return
-        await channel.send(embed=embed)
+            attachments = [
+                await attachment.to_file() for attachment in before.attachments
+            ]
+        await channel.send(embed=embed, files=attachments)
 
 
 def setup(bot: commands.Bot):
