@@ -83,7 +83,7 @@ class Suggestions(commands.Cog):
         await suggestion_msg.remove_reaction("💬", self.bot.user)
         if suggestion_msg.thread is not None:
             await suggestion_msg.thread.send(
-                "Locking thread as the suggestion has been rejected! Please create a new thread if you have any questions!"
+                "Locking thread as the suggestion has been approved! Please create a new thread if you have any questions!"
             )
             await suggestion_msg.thread.edit(locked=True)
         await ctx.send("Suggestion approved!")
